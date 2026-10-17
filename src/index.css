@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #b0bac9 transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 8px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: #b0bac9;
+    border-radius: 4px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: #65758f;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    background: #ffffff;
+    color: #1f2535;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 32px rgba(31, 37, 53, 0.06);
+  }
+
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 24px rgba(31, 37, 53, 0.05);
+  }
+
+  .text-gradient-cobalt {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 50%, #431407 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .bg-gradient-cobalt {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  }
+
+  .bg-mesh {
+    background-color: #ffffff;
+    background-image:
+      radial-gradient(at 12% 18%, rgba(249, 115, 22, 0.06) 0px, transparent 50%),
+      radial-gradient(at 88% 8%, rgba(234, 88, 12, 0.05) 0px, transparent 50%),
+      radial-gradient(at 75% 92%, rgba(249, 115, 22, 0.04) 0px, transparent 50%),
+      radial-gradient(at 22% 85%, rgba(251, 146, 60, 0.05) 0px, transparent 50%);
+  }
+}
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+  .scroll-smooth-supported {
+    scroll-behavior: smooth;
+  }
+  .shimmer-bg {
+    background: linear-gradient(
+      90deg,
+      rgba(249, 115, 22, 0) 0%,
+      rgba(249, 115, 22, 0.08) 50%,
+      rgba(249, 115, 22, 0) 100%
+    );
+    background-size: 200% 100%;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
