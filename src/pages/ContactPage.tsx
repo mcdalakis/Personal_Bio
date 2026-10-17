@@ -4,7 +4,8 @@ import {
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { IMAGES } from '@/lib/images';
+
+const PROFILE_IMAGE = `${import.meta.env.BASE_URL}profile.jpg`;
 
 type ToastState = 'idle' | 'success' | 'error';
 
@@ -154,7 +155,7 @@ export function ContactPage() {
             <div className="lg:col-span-2">
               <div className="relative h-full min-h-80 overflow-hidden rounded-3xl shadow-xl">
                 <img
-                  src={IMAGES.contact}
+                  src={PROFILE_IMAGE}
                   alt="Contact communication"
                   className="h-full w-full object-cover"
                   loading="lazy"

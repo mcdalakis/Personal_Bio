@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Zap } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+
+const PROFILE_IMAGE = `${import.meta.env.BASE_URL}profile.jpg`;
 
 const NAV_LINKS = [
   { label: 'Home', to: '/' },
@@ -47,9 +49,11 @@ export function Navbar() {
             }}
             className="flex items-center gap-2 font-bold text-ink-900 transition-transform hover:scale-105"
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-cobalt text-white shadow-lg shadow-cobalt-500/30">
-              <Zap className="h-5 w-5" fill="currentColor" />
-            </span>
+            <img
+              src={PROFILE_IMAGE}
+              alt=""
+              className="h-9 w-9 rounded-full object-cover shadow-lg shadow-cobalt-500/30"
+            />
             <span className="text-lg">mcdalakis</span>
           </Link>
 

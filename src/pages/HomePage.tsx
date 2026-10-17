@@ -119,7 +119,7 @@ function Hero() {
         </div>
 
         <p className="mx-auto mb-10 max-w-2xl text-base leading-relaxed text-ink-500 sm:text-lg animate-fade-up" style={{ animationDelay: '0.3s' }}>
-          Passionate about technology from a young age—coding, animating, building home automation setups, and exploring complex systems.
+          Passionate about technology, coding, building home automation setups and exploring complex systems.
         </p>
 
         <div className="mb-10 flex items-center justify-center gap-1.5 text-sm text-ink-400 animate-fade-up" style={{ animationDelay: '0.35s' }}>

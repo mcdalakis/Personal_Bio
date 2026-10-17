@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
-import { Zap, Heart } from 'lucide-react';
+
+const PROFILE_IMAGE = `${import.meta.env.BASE_URL}profile.jpg`;
 
 const SOCIAL_LINKS = [
   { label: 'GitHub', href: 'https://github.com' },
-  { label: 'LinkedIn', href: 'https://linkedin.com' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/michael-dalakis-878463368' },
   { label: 'Email', to: '/contact' },
 ];
 
@@ -21,9 +22,11 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
           <Link to="/" className="flex items-center gap-2 font-bold text-ink-900">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-cobalt text-white shadow-lg shadow-cobalt-500/20">
-              <Zap className="h-5 w-5" fill="currentColor" />
-            </span>
+            <img
+              src={PROFILE_IMAGE}
+              alt=""
+              className="h-9 w-9 rounded-full object-cover shadow-lg shadow-cobalt-500/20"
+            />
             <span>Michael Dalakis</span>
           </Link>
 
@@ -38,7 +41,6 @@ export function Footer() {
               </Link>
             ))}
           </nav>
-
           <div className="flex gap-4">
             {SOCIAL_LINKS.map((link) =>
               link.href ? (
