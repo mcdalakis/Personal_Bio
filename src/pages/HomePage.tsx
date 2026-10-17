@@ -9,12 +9,12 @@ const CYCLING_PHRASES = [
   'ECE Student @ Uni of Patras',
   'Python Developer',
   'Smart Home & Audio Enthusiast',
-  'Metalhead & Gamer',
+  'Aviation & Motorsports Fan',
 ];
 
 const SOCIAL_LINKS = [
-  { icon: Github, href: 'https://github.com', label: 'GitHub' },
-  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+  { icon: Github, href: 'https://github.com/mcdalakis', label: 'GitHub' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/michael-dalakis-878463368', label: 'LinkedIn' },
   { icon: Mail, href: '#/contact', label: 'Email' },
 ];
 

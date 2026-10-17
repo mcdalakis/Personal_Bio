@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Zap } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const NAV_LINKS = [
   { label: 'Home', to: '/' },
@@ -33,13 +34,17 @@ export function Navbar() {
       }`}
     >
       <nav
-        className={`mx-auto max-w-6xl px-4 transition-all duration-300 ${
-          scrolled ? 'glass-nav rounded-2xl' : 'bg-transparent'
+        className={`mx-3 max-w-6xl transition-all duration-300 md:mx-auto md:px-4 ${
+          scrolled || mobileOpen ? 'glass-nav rounded-2xl' : 'bg-transparent'
         }`}
       >
-        <div className="flex items-center justify-between px-4 py-3">
+        <div className="flex items-center justify-between px-3 py-3 md:px-4">
           <Link
             to="/"
+            onClick={() => {
+              setMobileOpen(false);
+              window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+            }}
             className="flex items-center gap-2 font-bold text-ink-900 transition-transform hover:scale-105"
           >
             <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-cobalt text-white shadow-lg shadow-cobalt-500/30">
@@ -54,23 +59,19 @@ export function Navbar() {
                 key={link.to}
                 to={link.to}
                 className={`relative rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
-                  location.pathname === link.to
-                    ? 'text-cobalt-600'
-                    : 'text-ink-600 hover:text-cobalt-600'
+                  link.to === '/contact'
+                    ? 'rounded-xl bg-orange-500 text-white shadow-md shadow-orange-500/30 hover:bg-orange-600'
+                    : location.pathname === link.to
+                      ? 'text-cobalt-600'
+                      : 'text-ink-600 hover:text-cobalt-600'
                 }`}
               >
                 {link.label}
-                {location.pathname === link.to && (
+                {location.pathname === link.to && link.to !== '/contact' && (
                   <span className="absolute bottom-0.5 left-1/2 h-0.5 w-6 -translate-x-1/2 rounded-full bg-cobalt-500" />
                 )}
               </Link>
             ))}
-            <Link
-              to="/contact"
-              className="ml-2 rounded-xl bg-gradient-cobalt px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-cobalt-500/25 transition-all hover:shadow-xl hover:shadow-cobalt-500/40 hover:-translate-y-0.5"
-            >
-              Say Hello
-            </Link>
           </div>
 
           <button
@@ -82,23 +83,51 @@ export function Navbar() {
           </button>
         </div>
 
-        {mobileOpen && (
-          <div className="flex flex-col gap-1 px-4 pb-4 md:hidden">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`rounded-lg px-4 py-3 text-left text-sm font-medium transition-colors ${
-                  location.pathname === link.to
-                    ? 'bg-cobalt-50 text-cobalt-600'
-                    : 'text-ink-600 hover:bg-cobalt-50 hover:text-cobalt-600'
-                }`}
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
+              className="overflow-hidden md:hidden"
+            >
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0 },
+                  show: { opacity: 1, transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
+                  exit: { opacity: 0, transition: { staggerChildren: 0.04, staggerDirection: -1 } },
+                }}
+                initial="hidden"
+                animate="show"
+                exit="exit"
+                className="flex flex-col gap-1 px-4 pb-4"
               >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        )}
+                {NAV_LINKS.map((link) => (
+                  <motion.div
+                    key={link.to}
+                    variants={{
+                      hidden: { y: 16, opacity: 0 },
+                      show: { y: 0, opacity: 1 },
+                      exit: { y: 16, opacity: 0 },
+                    }}
+                  >
+                    <Link
+                      to={link.to}
+                      className={`block rounded-lg px-4 py-3 text-left text-sm font-medium transition-colors ${
+                        location.pathname === link.to
+                          ? 'bg-cobalt-50 text-cobalt-600'
+                          : 'text-ink-600 hover:bg-cobalt-50 hover:text-cobalt-600'
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
     </header>
   );

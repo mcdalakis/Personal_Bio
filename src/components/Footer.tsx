@@ -65,9 +65,7 @@ export function Footer() {
         </div>
 
         <div className="mt-8 flex items-center justify-center gap-1.5 text-sm text-ink-400">
-          <span>Built with</span>
-          <Heart className="h-4 w-4 fill-red-400 text-red-400" />
-          <span>& React. © 2026 Michael Dalakis.</span>
+          <span>© 2026 Michael Dalakis.</span>
         </div>
       </div>
     </footer>
