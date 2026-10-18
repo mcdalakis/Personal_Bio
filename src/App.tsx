@@ -5,7 +5,7 @@ import { ScrollToTop } from '@/components/ScrollToTop';
 import { HomePage } from '@/pages/HomePage';
 import { WorldPage } from '@/pages/WorldPage';
 import { JourneyPage } from '@/pages/JourneyPage';
-import { FactsPage } from '@/pages/FactsPage';
+import { ProjectsPage } from '@/pages/ProjectsPage';
 import { ContactPage } from '@/pages/ContactPage';
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/world" element={<WorldPage />} />
             <Route path="/journey" element={<JourneyPage />} />
-            <Route path="/facts" element={<FactsPage />} />
+            <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </main>

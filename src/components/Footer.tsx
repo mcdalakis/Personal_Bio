@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const PROFILE_IMAGE = `${import.meta.env.BASE_URL}profile.jpg`;
 
 const SOCIAL_LINKS = [
-  { label: 'GitHub', href: 'https://github.com' },
+  { label: 'GitHub', href: 'https://github.com/mcdalakis' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/michael-dalakis-878463368' },
   { label: 'Email', to: '/contact' },
 ];
@@ -12,7 +12,7 @@ const PAGE_LINKS = [
   { label: 'Home', to: '/' },
   { label: 'My World', to: '/world' },
   { label: 'Journey', to: '/journey' },
-  { label: 'Fast Facts', to: '/facts' },
+  { label: 'Projects', to: '/projects' },
   { label: 'Contact', to: '/contact' },
 ];
 

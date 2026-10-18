@@ -9,7 +9,7 @@ const NAV_LINKS = [
   { label: 'Home', to: '/' },
   { label: 'My World', to: '/world' },
   { label: 'Journey', to: '/journey' },
-  { label: 'Fast Facts', to: '/facts' },
+  { label: 'Projects', to: '/projects' },
   { label: 'Contact', to: '/contact' },
 ];
 

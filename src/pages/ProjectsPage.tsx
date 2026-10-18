@@ -54,7 +54,7 @@ function PageHeader() {
   );
 }
 
-export function FactsPage() {
+export function ProjectsPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipping, setIsFlipping] = useState(false);
   const { ref, isVisible } = useScrollReveal(0.1);
