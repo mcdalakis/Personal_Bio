@@ -2,20 +2,32 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Michael Dalakis — ECE Student & Developer</title>
     <meta name="description" content="Michael Dalakis — ECE student at the University of Patras. Python developer, smart home enthusiast, and creative technologist." />
-    <meta property="og:image" content="https://bolt.new/static/og_default.png" />
+    <meta property="og:image" content="https://mcdalakis.github.io/Personal_Bio/profile.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://bolt.new/static/og_default.png" />
+    <meta name="twitter:image" content="https://mcdalakis.github.io/Personal_Bio/profile.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-    <script type="module" crossorigin src="/Personal_Bio/assets/index-lOxpVmIp.js"></script>
-    <link rel="stylesheet" crossorigin href="/Personal_Bio/assets/index-C4eGpukg.css">
+    <script type="module" crossorigin src="/Personal_Bio/assets/index-IN_cYFmS.js"></script>
+    <link rel="stylesheet" crossorigin href="/Personal_Bio/assets/index-PYpxllU2.css">
   </head>
   <body>
+    <script>
+      const redirect = new URLSearchParams(window.location.search);
+      const route = redirect.get('p');
+
+      if (route) {
+        const query = redirect.get('q') || '';
+        window.history.replaceState(
+          null,
+          '',
+          window.location.pathname + route + query + window.location.hash,
+        );
+      }
+    </script>
     <div id="root"></div>
   </body>
 </html>

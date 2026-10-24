@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex" />
+    <title>Redirecting...</title>
+  </head>
+  <body>
+    <script>
+      const segments = window.location.pathname.split('/').filter(Boolean);
+      const base = `/${segments.shift()}/`;
+      const route = `/${segments.join('/')}`;
+      const query = window.location.search;
+
+      window.location.replace(
+        `${base}?p=${encodeURIComponent(route)}&q=${encodeURIComponent(query)}${window.location.hash}`,
+      );
+    </script>
+  </body>
+</html>
