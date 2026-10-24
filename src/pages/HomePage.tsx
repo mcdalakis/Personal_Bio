@@ -15,7 +15,7 @@ const CYCLING_PHRASES = [
 const SOCIAL_LINKS = [
   { icon: Github, href: 'https://github.com/mcdalakis', label: 'GitHub' },
   { icon: Linkedin, href: 'https://www.linkedin.com/in/michael-dalakis-878463368', label: 'LinkedIn' },
-  { icon: Mail, href: '#/contact', label: 'Email' },
+  { icon: Mail, href: `${import.meta.env.BASE_URL}contact`, label: 'Email' },
 ];
 
 const PREVIEW_CARDS = [
@@ -171,7 +171,7 @@ function Hero() {
 }
 
 function PreviewCard({ card, delay }: { card: typeof PREVIEW_CARDS[number]; delay: number }) {
-  const { ref, isVisible } = useScrollReveal();
+  const { ref, isVisible } = useScrollReveal<HTMLAnchorElement>();
   return (
     <Link
       to={card.to}

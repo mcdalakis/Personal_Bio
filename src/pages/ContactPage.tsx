@@ -2,12 +2,13 @@ import { useState, useEffect, type FormEvent } from 'react';
 import {
   Send, CheckCircle2, AlertCircle, Mail, MapPin, MessageSquare, User, Loader2,
 } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+import emailjs from '@emailjs/browser';
+import { Link } from 'react-router-dom';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 const PROFILE_IMAGE = `${import.meta.env.BASE_URL}profile.jpg`;
 
-type ToastState = 'idle' | 'success' | 'error';
+type ToastState = 'idle' | 'success' | 'error' | 'invalid';
 
 function FloatingInput({
   id,
@@ -18,6 +19,7 @@ function FloatingInput({
   icon: Icon,
   required,
   textarea,
+  maxLength,
 }: {
   id: string;
   label: string;
@@ -27,6 +29,7 @@ function FloatingInput({
   icon: React.ElementType;
   required?: boolean;
   textarea?: boolean;
+  maxLength: number;
 }) {
   const [focused, setFocused] = useState(false);
   const isFloating = focused || value.length > 0;
@@ -40,6 +43,7 @@ function FloatingInput({
         <textarea
           id={id}
           required={required}
+          maxLength={maxLength}
           value={value}
           rows={4}
           onChange={(e) => onChange(e.target.value)}
@@ -53,6 +57,7 @@ function FloatingInput({
           id={id}
           type={type}
           required={required}
+          maxLength={maxLength}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           onFocus={() => setFocused(true)}
@@ -105,6 +110,7 @@ export function ContactPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [website, setWebsite] = useState('');
   const [toast, setToast] = useState<ToastState>('idle');
   const [submitting, setSubmitting] = useState(false);
   const { ref, isVisible } = useScrollReveal(0.1);
@@ -118,22 +124,57 @@ export function ContactPage() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (submitting) return;
+
+    if (website) {
+      setToast('success');
+      return;
+    }
+
+    const cleanName = name.trim();
+    const cleanEmail = email.trim();
+    const cleanMessage = message.trim();
+
+    if (
+      !cleanName ||
+      cleanName.length > 100 ||
+      !cleanEmail ||
+      cleanEmail.length > 254 ||
+      !cleanMessage ||
+      cleanMessage.length > 3000
+    ) {
+      setToast('invalid');
+      return;
+    }
+
     setSubmitting(true);
 
     try {
-      const { error } = await supabase.from('contact_messages').insert({
-        name,
-        email,
-        message,
-      });
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-      if (error) throw error;
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error('EmailJS is not configured. Set the required VITE_EMAILJS_* values.');
+      }
+
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          name: cleanName,
+          email: cleanEmail,
+          time: new Date().toISOString(),
+          message: cleanMessage,
+        },
+        { publicKey },
+      );
 
       setToast('success');
       setName('');
       setEmail('');
       setMessage('');
-    } catch {
+    } catch (error) {
+      console.error('Contact form submission failed.', error);
       setToast('error');
     } finally {
       setSubmitting(false);
@@ -177,6 +218,21 @@ export function ContactPage() {
             {/* Form side */}
             <div className="lg:col-span-3">
               <form onSubmit={handleSubmit} className="glass-card rounded-3xl p-6 sm:p-8">
+                <div
+                  aria-hidden="true"
+                  className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden"
+                >
+                  <label htmlFor="website">Leave this field empty</label>
+                  <input
+                    id="website"
+                    name="website"
+                    type="text"
+                    value={website}
+                    onChange={(event) => setWebsite(event.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
                 <div className="space-y-4">
                   <FloatingInput
                     id="name"
@@ -185,6 +241,7 @@ export function ContactPage() {
                     onChange={setName}
                     icon={User}
                     required
+                    maxLength={100}
                   />
                   <FloatingInput
                     id="email"
@@ -194,6 +251,7 @@ export function ContactPage() {
                     onChange={setEmail}
                     icon={Mail}
                     required
+                    maxLength={254}
                   />
                   <FloatingInput
                     id="message"
@@ -203,6 +261,7 @@ export function ContactPage() {
                     icon={MessageSquare}
                     required
                     textarea
+                    maxLength={3000}
                   />
                 </div>
 
@@ -223,6 +282,14 @@ export function ContactPage() {
                     </>
                   )}
                 </button>
+                <p className="mt-4 text-center text-xs leading-relaxed text-ink-400">
+                  EmailJS and your email provider process the details you submit so you can
+                  receive a reply. See the{' '}
+                  <Link className="underline hover:text-cobalt-600" to="/privacy">
+                    Privacy Notice
+                  </Link>
+                  .
+                </p>
               </form>
             </div>
           </div>
@@ -241,6 +308,11 @@ export function ContactPage() {
               <>
                 <CheckCircle2 className="h-5 w-5" />
                 <span className="text-sm font-semibold">Message sent! I'll get back to you soon.</span>
+              </>
+            ) : toast === 'invalid' ? (
+              <>
+                <AlertCircle className="h-5 w-5" />
+                <span className="text-sm font-semibold">Please check the required fields and their maximum lengths.</span>
               </>
             ) : (
               <>

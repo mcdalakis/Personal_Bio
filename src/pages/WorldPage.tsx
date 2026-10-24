@@ -5,7 +5,6 @@ import {
   Activity, Zap, ArrowUpRight, CheckCircle2, Volume2, Target,
   ArrowRight, Server, Speaker, Gauge as GaugeIcon,
 } from 'lucide-react';
-import { useTilt } from '@/hooks/useTilt';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { IMAGES } from '@/lib/images';
 
@@ -48,7 +47,7 @@ function ImageCard({
   delay = 0,
 }: {
   title: string;
-  subtitle: string;
+  subtitle: React.ReactNode;
   description: string;
   images: { src: string; alt: string; label: string }[];
   tags: string[];

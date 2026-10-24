@@ -14,6 +14,7 @@ const PAGE_LINKS = [
   { label: 'Journey', to: '/journey' },
   { label: 'Projects', to: '/projects' },
   { label: 'Contact', to: '/contact' },
+  { label: 'Privacy', to: '/privacy' },
 ];
 
 export function Footer() {

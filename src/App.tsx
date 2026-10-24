@@ -7,6 +7,7 @@ import { WorldPage } from '@/pages/WorldPage';
 import { JourneyPage } from '@/pages/JourneyPage';
 import { ProjectsPage } from '@/pages/ProjectsPage';
 import { ContactPage } from '@/pages/ContactPage';
+import { PrivacyPage } from '@/pages/PrivacyPage';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/journey" element={<JourneyPage />} />
             <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
           </Routes>
         </main>
         <Footer />
